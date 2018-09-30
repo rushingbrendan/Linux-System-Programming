@@ -1,0 +1,32 @@
+#!/bin/bash
+#===============================================================================
+#
+#	file	:	StartHoochamacallit.sh
+#
+#	author	:	Conor Macpherson
+#
+#	purpose :	This bash script will run the Hoochamacallit system.
+#
+#			A dataReader will be spawned.
+#
+#			Then, 10 Data creaters will be spawn with 1 second
+#			between each spawn.
+#
+#			Finally, a data corrupter will then be spawned.
+#
+#===============================================================================
+
+echo "Starting data reader"
+program/bin/dataReader &
+
+for i in $(seq 1 10);
+do
+
+	echo "Starting dataCreator ${i}"
+	program/bin/dataCreator &
+	sleep 1s
+
+done
+
+echo "Starting data corrupter"
+program/bin/dataCorrupter &
